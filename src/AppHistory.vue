@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-
-     <div class="right-container">
+    <div class="right-container">
       <div class="gantt-selected-info">
         <div v-if="selectedTask">
           <h2>{{selectedTask.text}}</h2>
@@ -18,22 +17,12 @@
         <li class="gantt-message" v-for="message in messages">{{message}}</li>
       </ul>
     </div>
-
-    <gantt class="left-container" 
-          :tasks="tasks"
-          @task-updated="logTaskUpdate"
-          @link-updated="logLinkUpdate" 
-          @task-selected="selectTask">
-    </gantt>
+    <gantt class="left-container" :tasks="tasks" @task-updated="logTaskUpdate" @link-updated="logLinkUpdate" @task-selected="selectTask"></gantt>
   </div>
 </template>
 
 <script>
 import Gantt from './components/Gantt.vue'
-import { debug } from 'util';
-import { constants } from 'crypto';
-
-(function () {} ())
 
 export default {
   name: 'app',
@@ -42,10 +31,12 @@ export default {
     return {
       tasks: {
         data: [
-          {id: 1, text: '任务名称1', start_date: '15-04-2017', duration: 3, progress: 0.6},
-
-          {id: 2, text: '任务名称2', start_date: '18-04-2017', duration: 3, progress: 0.4}
+          {id: 1, text: 'Task #1', start_date: '15-04-2017', duration: 3, progress: 0.6},
+          {id: 2, text: 'Task #2', start_date: '18-04-2017', duration: 3, progress: 0.4}
         ],
+        links: [
+          {id: 1, source: 1, target: 2, type: '0'}
+        ]
       },
     selectedTask: null,
       messages: []
@@ -66,40 +57,27 @@ export default {
     },
   
     addMessage (message) {
-      
       this.messages.unshift(message)
       if(this.messages.length > 40) {
         this.messages.pop()
       }
     },
-    //拖动事件，修改时间
-    logTaskUpdate (id, mode, task) {
-      debugger
 
-      console.log(this.selectedTask)
-      
+    logTaskUpdate (id, mode, task) {
       let text = (task && task.text ? ` (${task.text})`: '')
       let message = `Task ${mode}: ${id} ${text}`
       this.addMessage(message)
-      console.log(this.selectedTask)
     },
 
     logLinkUpdate (id, mode, link) {
-      
       let message = `Link ${mode}: ${id}`
       if(link){
         message += ` ( source: ${link.source}, target: ${link.target} )`
       }
       this.addMessage(message)
-       console.log(this.tasks)
     }
   }
 }
-
-
-
-
-
 </script>
 
 <style>
