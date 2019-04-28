@@ -1,7 +1,7 @@
 <template>
   <div class="container">
 
-     <div class="right-container">
+     <!-- <div class="right-container">
       <div class="gantt-selected-info">
         <div v-if="selectedTask">
           <h2>{{selectedTask.text}}</h2>
@@ -17,7 +17,7 @@
       <ul class="gantt-messages">
         <li class="gantt-message" v-for="message in messages">{{message}}</li>
       </ul>
-    </div>
+    </div> -->
 
     <gantt class="left-container" 
           :tasks="tasks"
@@ -42,9 +42,10 @@ export default {
     return {
       tasks: {
         data: [
-          {id: 1, text: '任务名称1', start_date: '15-04-2017', duration: 3, progress: 0.6},
-
-          {id: 2, text: '任务名称2', start_date: '18-04-2017', duration: 3, progress: 0.4}
+        {id:1, text:"Project #1",    type:gantt.config.types.project,    open:true},   
+        {id:2, text:"Task #1",       start_date:"12-04-2013", duration:3, parent:1},
+        {id:3, text:"Alpha release", type:gantt.config.types.milestone,  open:true,  start_date:"14-04-2013"},                                                
+        {id:4, text:"Task #2",       start_date:"17-04-2013", duration:3, parent:3}
         ],
       },
     selectedTask: null,
@@ -79,7 +80,7 @@ export default {
       console.log(this.selectedTask)
       
       let text = (task && task.text ? ` (${task.text})`: '')
-      let message = `Task ${mode}: ${id} ${text}`
+      let message = `Task ${mode}: ${id} ${text}` 
       this.addMessage(message)
       console.log(this.selectedTask)
     },
@@ -95,9 +96,6 @@ export default {
     }
   }
 }
-
-
-
 
 
 </script>
