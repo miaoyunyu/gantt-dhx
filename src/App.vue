@@ -34,9 +34,9 @@ export default {
     },
     //tasks
     logTaskUpdate (id, mode, task) {
+      debugger
       let text = (task && task.text ? ` (${task.text})`: '')
       let message = `Task ${mode}: ${id} ${text}` 
-     
     },
     //link
     logLinkUpdate (id, mode, link) {
@@ -50,6 +50,8 @@ export default {
       //        .then(res => {
       //           this.regroupData(res)
       //   })
+
+
       let res={
          result:1,
          data:[
