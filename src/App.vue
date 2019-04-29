@@ -1,24 +1,5 @@
 <template>
   <div class="container">
-
-     <!-- <div class="right-container">
-      <div class="gantt-selected-info">
-        <div v-if="selectedTask">
-          <h2>{{selectedTask.text}}</h2>
-          <span><b>ID: </b>{{selectedTask.id}}</span><br/>
-          <span><b>Progress: </b>{{selectedTask.progress|toPercent}}%</span><br/>
-          <span><b>Start Date: </b>{{selectedTask.start_date|niceDate}}</span><br/>
-          <span><b>End Date: </b>{{selectedTask.end_date|niceDate}}</span><br/>
-        </div>
-        <div v-else class="select-task-prompt">
-          <h2>Click any task</h2>
-        </div>
-      </div>
-      <ul class="gantt-messages">
-        <li class="gantt-message" v-for="message in messages">{{message}}</li>
-      </ul>
-    </div> -->
-
     <gantt class="left-container" 
           :tasks="tasks"
           @task-updated="logTaskUpdate"
@@ -33,7 +14,6 @@ import Gantt from './components/Gantt.vue'
 import { debug } from 'util';
 import { constants } from 'crypto';
 
-(function () {} ())
 
 export default {
   name: 'app',
@@ -41,24 +21,11 @@ export default {
   data () {
     return {
       tasks: {
-        data: [
-        {id:1, text:"Project #1",    type:gantt.config.types.project,    open:true},   
-        {id:2, text:"Task #1",       start_date:"12-04-2013", duration:3, parent:1},
-        {id:3, text:"Alpha release", type:gantt.config.types.milestone,  open:true,  start_date:"14-04-2013"},                                                
-        {id:4, text:"Task #2",       start_date:"17-04-2013", duration:3, parent:3}
-        ],
+        data: [],
+        links:[],
       },
     selectedTask: null,
       messages: []
-    }
-  },
-  filters: {
-    toPercent (val) {
-      if(!val) return '0'
-      return Math.round((+val) * 100)
-    },
-    niceDate (obj){
-      return `${obj.getFullYear()} / ${obj.getMonth() + 1} / ${obj.getDate()}`
     }
   },
   methods: {
@@ -73,7 +40,7 @@ export default {
         this.messages.pop()
       }
     },
-    //拖动事件，修改时间
+    //tasks
     logTaskUpdate (id, mode, task) {
       debugger
 
@@ -84,7 +51,7 @@ export default {
       this.addMessage(message)
       console.log(this.selectedTask)
     },
-
+    //link
     logLinkUpdate (id, mode, link) {
       
       let message = `Link ${mode}: ${id}`
@@ -93,8 +60,53 @@ export default {
       }
       this.addMessage(message)
        console.log(this.tasks)
-    }
+    },  // 获取数据
+    getData: function() {     
+      //  axios.get('/projects/gantt_chart/'+'459c0426bbac407fb9d9de9ebbe53514')
+      //        .then(res => {
+      //           this.regroupData(res)
+      //   })
+      let res={
+         result:1,
+         data:[
+             {id:1, text:"任务1", type:gantt.config.types.milestone,   start_date:1556519957000, end_date:1556519957000,open:true},
+              {id:2, text:"任务2", type:gantt.config.types.milestone,   start_date:1556519957000, end_date:1556519957000, parent:1},
+         ]
+      }
+
+       this.regroupData(res)
+     },
+    // 设置数据填充表格
+     regroupData:function(data){
+
+       
+        if(data.result == 1){
+            let task=this.tasks.data
+            let listData=data.data
+            listData.forEach(item=>{
+                   let cur={
+                        id: item.id,
+                        publicId:item.publicId,
+                        text: item.text,
+                        user: item.user,
+                        type: item.type,
+                        start_date: new Date(item.start_date),
+                        end_date: new Date(item.end_date),
+                         parent:item.parent,
+                        open:item.open
+                        
+                   }
+                  task.push(cur)
+            })
+         
+       } 
+     },
+    
+  },
+  created:function(){
+        this.getData();
   }
+
 }
 
 

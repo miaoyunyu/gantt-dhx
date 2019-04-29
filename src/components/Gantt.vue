@@ -20,10 +20,6 @@ export default {
     $_initGanttEvents: function () {
       if(gantt.$_eventsInitialized)
         return;
-      
-      
-     
-
       gantt.attachEvent('onTaskSelected', (id) => {
         let task = gantt.getTask(id)
         this.$emit('task-selected', task)
@@ -70,52 +66,24 @@ export default {
     gantt.parse(this.$props.tasks)
   },
   created:function(){
-
     gantt.config.columns = [
-    {name:"text",       label:"www name",  width:"*", tree:true },
-    {name:"start_date", label:"Start time", align:"center" },
-    {name:"duration",   label:"Duration",   align:"center" },
-    {name:"add",        label:"",           width:44 }
-];
-    //  gantt.locale = {
-    //     date:{
-    //         month_full:["January", "February", "March", "April", "May", "June", "July",
-    //         "August", "September", "October", "November", "December"],
-    //         month_short:["一月", "二月", "三月", "四月", "五月", "Jun", "Jul", "Aug", "Sep",
-    //         "Oct", "Nov", "Dec"],
-    //         day_full:["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
-    //         "Saturday"],
-    //         day_short:["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-    //     },
-    //     labels:{
-    //     new_task:"New fdsfdsfsfs",
-    //     icon_save:"Save",
-    //     icon_cancel:"Cancel",
-    //     icon_details:"Details",
-    //     icon_edit:"Edit",
-    //     icon_delete:"Delete",
-    //     confirm_closing:"",//Your changes will be lost, are you sure ?
-    //     confirm_deleting:"Task will be deleted permanently, are you sure?",
- 
-    //     section_description:"Description",
-    //     section_time:"Time period",
- 
-    //     /* link confirmation */
- 
-    //     confirm_link_deleting:"Dependency will be deleted permanently, are you sure?",
-    //     link_from: "From",
-    //     link_to: "To",
-    //     link_start: "Start",
-    //     link_end: "End",
- 
-    //     minutes: "Minutes",
-    //     hours: "Hours",
-    //     days: "Days",
-    //     weeks: "Week",
-    //     months: "Months",
-    //     years: "Years"
-    // }
-    // };
+        {name:"text",       label:"任务名称",  width:"*", tree:true },
+        {name:"start_date", label:"开始时间", align:"center", width:90 },
+        {name:"end_date",   label:"结束时间",  align:"center" , width:90},
+         // {name:"add",        label:"",           width:44 }
+      ];
+     gantt.locale = {
+        date:{
+            month_full:["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月",
+            "十月", "十一月", "十二月"],
+            month_short:["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月",
+            "十月", "十一月", "十二月"],
+            day_full:["星期日", "星期一", "星期二", "星期三", "星期四", "星期五",
+            "星期六"],
+            day_short:["日", "一", "二", "三", "四", "五", "六"]
+        },
+        labels:{ }
+    };
   }
 }
 </script>
