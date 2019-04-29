@@ -83,20 +83,19 @@ export default {
             day_short:["日", "一", "二", "三", "四", "五", "六"]
         },
         labels:{ 
-        new_task:"",
-        icon_save:"保存",
-        icon_cancel:"取消",
-        icon_details:"详情",
-        icon_edit:"Edit",
-        icon_delete:"册除",
-        section_description:"任务名称",
-        section_time:"任务时间",
-        minutes: "分",
-        hours: "小时",
-        days: "日",
-        weeks: "周",
-        months: "月",
-        years: "年"
+            icon_save:"保存",
+            icon_cancel:"取消",
+            icon_details:"详情",
+            icon_edit:"Edit",
+            icon_delete:"册除",
+            section_description:"任务名称",
+            section_time:"任务时间",
+            minutes: "分",
+            hours: "小时",
+            days: "日",
+            weeks: "周",
+            months: "月",
+            years: "年"
         }
     };
   }
