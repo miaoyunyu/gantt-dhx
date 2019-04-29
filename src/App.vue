@@ -32,34 +32,18 @@ export default {
     selectTask (task) {
       this.selectedTask = task
     },
-  
-    addMessage (message) {
-      
-      this.messages.unshift(message)
-      if(this.messages.length > 40) {
-        this.messages.pop()
-      }
-    },
     //tasks
     logTaskUpdate (id, mode, task) {
-      debugger
-
-      console.log(this.selectedTask)
-      
       let text = (task && task.text ? ` (${task.text})`: '')
       let message = `Task ${mode}: ${id} ${text}` 
-      this.addMessage(message)
-      console.log(this.selectedTask)
+     
     },
     //link
     logLinkUpdate (id, mode, link) {
-      
       let message = `Link ${mode}: ${id}`
       if(link){
         message += ` ( source: ${link.source}, target: ${link.target} )`
       }
-      this.addMessage(message)
-       console.log(this.tasks)
     },  // 获取数据
     getData: function() {     
       //  axios.get('/projects/gantt_chart/'+'459c0426bbac407fb9d9de9ebbe53514')
@@ -69,17 +53,14 @@ export default {
       let res={
          result:1,
          data:[
-             {id:1, text:"任务1", type:gantt.config.types.milestone,   start_date:1556519957000, end_date:1556519957000,open:true},
-              {id:2, text:"任务2", type:gantt.config.types.milestone,   start_date:1556519957000, end_date:1556519957000, parent:1},
+             {id:1, text:"任务1", type:gantt.config.types.milestone,   start_date:1556519957000, end_date:1559111957000,open:true},
+             {id:2, text:"任务2", type:gantt.config.types.milestone,   start_date:1556519957000, end_date:1559111957000, parent:1},
          ]
       }
-
        this.regroupData(res)
      },
     // 设置数据填充表格
      regroupData:function(data){
-
-       
         if(data.result == 1){
             let task=this.tasks.data
             let listData=data.data
@@ -92,13 +73,11 @@ export default {
                         type: item.type,
                         start_date: new Date(item.start_date),
                         end_date: new Date(item.end_date),
-                         parent:item.parent,
-                        open:item.open
-                        
+                        parent:item.parent,
+                        open:item.open                      
                    }
                   task.push(cur)
             })
-         
        } 
      },
     
