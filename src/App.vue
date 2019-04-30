@@ -13,8 +13,6 @@
 import Gantt from './components/Gantt.vue'
 import { debug } from 'util';
 import { constants } from 'crypto';
-
-
 export default {
   name: 'app',
   components: {Gantt},
@@ -50,8 +48,6 @@ export default {
       //        .then(res => {
       //           this.regroupData(res)
       //   })
-
-
       let res={
          result:1,
          data:[

@@ -61,7 +61,6 @@ export default {
     
   mounted () {
     this.$_initGanttEvents();
-
     gantt.init(this.$refs.gantt)
     gantt.parse(this.$props.tasks)
   },
